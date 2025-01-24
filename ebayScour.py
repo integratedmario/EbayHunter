@@ -38,21 +38,22 @@ try:
     sort_dropdown.click()
     time.sleep(1)
     
-    '''dropdown_items = driver.find_elements(By.XPATH, '//li')
-    for item in dropdown_items:
-        print(item.text)
+    dropdown_items = driver.find_elements(By.XPATH, '//li')
+    '''for item in dropdown_items:
+        print(item.text)'''
         
     for item in dropdown_items:
         if "Price + Shipping: lowest first" in item.text:
             item.click()
-            break'''
+            break
     
     '''WebDriverWait(driver, 10).until(
     EC.visibility_of_element_located((By.XPATH, '//li[contains(text(), "Price + Shipping: Lowest first")]'))
     )'''
     
-    sort_by_price = driver.find_element(By.XPATH, '//li/a[@sp="p2351460.m4116.l5869.c4"]')
-    sort_by_price.click()
+    #Failed attempt to get sort button clicked via XPATH
+    '''sort_by_price = driver.find_element(By.XPATH, '//li/a[@sp="p2351460.m4116.l5869.c4"]')
+    sort_by_price.click()'''
 
     time.sleep(3)
     
@@ -64,8 +65,10 @@ try:
             title = product.find_element(By.XPATH, './/div[contains(@class, "s-item__title")]').text
             price = product.find_element(By.XPATH, './/span[contains(@class, "s-item__price")]').text
             link = product.find_element(By.XPATH, './/a[contains(@class, "s-item__link")]').get_attribute("href")
+            
             product_data.append([title, price, link])
-            print(f"{title} {price} {link}")
+            
+            #print(f"{title} {price} {link}")
         except Exception as e:
             # Skip any items missing data
             print(f"Error extracting data for a product: {e}")
@@ -75,14 +78,14 @@ try:
     
     fileName = searchQuery.replace(" ","_").lower()
     
-    '''with open(fileName + ".csv", mode="w", newline="", encoding="utf-8") as file:
+    with open(fileName + ".csv", mode="w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
         # Write the header row
         writer.writerow(["Title", "Price", "Link"])
         # Write the product rows
         writer.writerows(product_data)
 
-    print("Data saved to " + fileName + ".csv.")'''
+    print("Data saved to " + fileName + ".csv.")
 
 finally:
     print(0)
